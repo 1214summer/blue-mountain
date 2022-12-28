@@ -1,0 +1,72 @@
+body {
+    background: url(../images/sign_bg.png) #b8e5f8;
+    background-size: cover;
+}
+
+.signuplogo {
+    width: 128px;
+    height: 81px;
+    margin: 41px auto;
+}
+.signuplogo img {
+    
+    width: 128px;
+    height: 81px;
+}
+
+.signQR_Container {
+    width: 733px;
+    height: 507px;
+    margin: -16px auto;
+    background-color: #fff;
+}
+ .signQR_leftContainer {
+    float: left;
+    width: 332px;
+    height: 100%;
+    border-right: 1px solid #ebebeb;
+ }
+ .signQR_leftContainer div {
+    text-align: center;
+ }
+.process1 {
+    margin-top: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #444444;
+ }
+ .process2 {
+    margin-top: 8px;
+    margin-bottom: 24px;
+    color: #444444;
+    font-size: 14px;
+ }
+ .process3 img {
+    width: 140px;
+    height: 140px;
+ }
+.process4 {
+    margin-top: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444444;
+}
+.buttons {
+    margin-top: 73px;
+}
+.button1,
+.button2,
+.button3 {
+    float: left;
+    padding: 4px 8px;
+    margin-right: 10px;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+    background-color: transparent;
+    font-size: 12px;
+    color: #444444;
+}
+.button1{
+    margin-left: 38px;
+}
+
