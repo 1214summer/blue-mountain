@@ -15,58 +15,88 @@ body {
 }
 
 .signQR_Container {
-    width: 733px;
-    height: 507px;
-    margin: -16px auto;
+    width: 500px;
+    height: 400px;
+    margin: 100px auto;
     background-color: #fff;
+    overflow: hidden;
+    padding: 8px;
 }
- .signQR_leftContainer {
+.Sign_Tabs {
+    width: 500px;
+    height: 50px;
+    margin-top: 16px;
+    margin-left: 20px;
+    text-align: left;
+}
+.Sign_Tabs button {
     float: left;
-    width: 332px;
-    height: 100%;
-    border-right: 1px solid #ebebeb;
+    /* display: inline-block; */
+    /* padding: 8px 0; */
+    background-color: #fff;
+    margin-right: 50px;
+    font-size: 20px;
+    /* font-weight: 700; */
  }
- .signQR_leftContainer div {
-    text-align: center;
- }
-.process1 {
-    margin-top: 100px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #444444;
- }
- .process2 {
-    margin-top: 8px;
-    margin-bottom: 24px;
-    color: #444444;
+.Sign_Tabs .active {
+    font-weight: 700;
+    border-bottom: 5px solid #056de8;
+} 
+.content {
+    margin: 20px auto;
+    padding: 0 20px;
+}
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* opacity: 0; */
+    display: none;
+}
+.content .active{
+    display: block;
+}
+#f1,
+#f2{
+    width: 360px;
+    margin-left: 10px;
+}
+/* .phoneNumber {
+    display: block; 
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+}
+.phone-password {
+    display: block; 
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+} */
+/* #getMessage {
+    float: right;
+} */
+.content button {
+    display: block;
+    margin: 30px auto;
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: #056de8;
+    color: white;
+}
+.content span {
     font-size: 14px;
- }
- .process3 img {
-    width: 140px;
-    height: 140px;
- }
-.process4 {
-    margin-top: 24px;
+}
+ .content input {
+    display: block;
+    width: 450px;
+    height: 20px; 
+    /* width: 500px;
+    height: 50px; */
+    color: black;
     font-size: 14px;
-    font-weight: 600;
-    color: #444444;
-}
-.buttons {
-    margin-top: 73px;
-}
-.button1,
-.button2,
-.button3 {
-    float: left;
-    padding: 4px 8px;
-    margin-right: 10px;
-    border: 1px solid #ebebeb;
-    border-radius: 12px;
-    background-color: transparent;
-    font-size: 12px;
-    color: #444444;
-}
-.button1{
-    margin-left: 38px;
-}
-
+    margin-top: 20px; 
+    border-bottom: 1px solid #ebebeb;
+} 

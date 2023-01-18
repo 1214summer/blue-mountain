@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户中心</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- 引入favicon图标 -->
+    <link rel="shortcut icon" href="favicon1.ico">
+</head>
+
+<body>
+    <!-- shortcut导航栏开始 -->
+    <section class="shortcut">
+        <div class="logo">
+            <h1>
+                <a href="index.html" title="知乎"></a>
+            </h1>
+        </div>
+    </section>
+    <!-- shortcut导航栏结束 -->
+    <!-- <div class="w"> -->
+    <div class="w">
+        <div class="Tabs">
+            <ul>
+                <li>
+                    <button class="active">我的信息</button>
+                </li>
+                <li>
+                    <button>我的收藏</button>
+                </li>
+                <li>
+                    <button>我的文章</button>
+                </li>
+                <li>
+                    <button>我的关注</button>
+                </li>
+            </ul>
+
+        </div>
+
+
+        <div class="content">
+            <!-- 我的信息 -->
+            <section class="myInformation active">
+                <div class="singnal">
+                    <div class="photo">
+                        <img class="img" src="images/初始头像.png">
+
+                        <input class="input-img" type="file" accept="image/*" style="display: none;">
+
+
+                        <button class="upload-btn">修改我的图像</button>
+                    </div>
+                    <!-- 修改密码栏 -->
+                    &nbsp;&nbsp;&nbsp;修改密码：
+                    <form action="" class="passwordBox" id="passwordChange">
+
+                        <input type="number" placeholder="请输入原密码" name="oringinal">
+                        <input type="password" placeholder="请输入新密码" name="new">
+                        <button type="submit" >确认</button>
+                    </form>
+                </div>
+
+                <form class="my-form">
+                    <form id="information">
+                        <button type="submit">一键保存</button>
+                        <ul>
+                            <li>
+                                昵称：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                    type="text" placeholder="请输入名称" name="name"><br>
+                            </li>
+                            <li>
+                                性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                    type="text" placeholder="未知" name="sex"><br>
+                            </li>
+                            <li>
+                                一句话介绍：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" placeholder="请填写" name="introduce"><br>
+                            </li>
+                            <li>
+                                居住地：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
+                                    placeholder="未知" name="location"><br>
+                            </li>
+                            <li>
+                                所在行业：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" placeholder="未知"
+                                    name="job"><br>
+                            </li>
+                            <li>
+                                教育经历：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" placeholder="未知"
+                                    name="education">
+                            </li>
+                        </ul>
+                    </form>
+                </form>
+            </section>
+
+            <!-- 我的收藏 -->
+            <section class="myCollection">
+                <ul>
+                    <li>
+                        <div class="add">
+                            <h2>你好呀</h2>
+                            <div class="publish-account">
+                                <img src="images/初始头像.png" alt="">
+                                <span>尬尬</span>
+                                <button id="follow">＋关注</button>
+                            </div>
+                            <div class="contant">
+                                <!-- <img src="images/img_disabled.png" alt=""> -->
+                                <div class="wrap">
+                                    <input type="checkbox" id="exp">
+                                    <div class="characters">
+                                        <label class="read-allContent" for="exp"></label>
+                                        我是后端程序员,发现有些人的回答太看不起前端技术同学了。于是我去把我收藏的 
+                                    淘宝前端招聘JD 拿了出来，觉得前端是个人都能干的同学们想必已经熟练掌握了以下内容吧?
+                                     看完后你觉得前端算程序员吗？有的时候照着网上的教程能写出来东西，只能叫入门，或者简单使用。你打印个helloworld，
+                                     或者照着网上最佳实践撸个小项目，或者在公司的前端项目上能够二次开发就算是掌握前端了？
+                                     JavaScript各种概念都得了解，《JavaScript语言精粹》这本书的目录都得有概念，并且这些核心
+                                     点都能脱口而出是什么。这里列举一些做参考:知道组合寄生继承，知道class继承。知道怎么创建类function + class。
+                                     知道闭包在实际场景中怎么用，常见的坑。知道模块是什么，怎么用。知道event loop是什么，能举例说明event loop怎么影响平
+                                     时的编码。掌握基础数据结构，比如堆、栈、树，并了解这些数据结构计算机基础中的作用。知道ES6数组相关方法，比如forEach，map，reduce。
+                    
+                                    </div>
+                                </div>
+                        
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                    <div class="add">
+                        <h2>你好呀</h2>
+                        <div class="publish-account">
+                            <img src="images/初始头像.png" alt="">
+                            <span>尬尬</span>
+                            <button id="follow">＋关注</button>
+                        </div>
+                        <div class="contant">
+                            <!-- <img src="images/img_disabled.png" alt=""> -->
+                            <div class="wrap">
+                                <input type="checkbox" id="exp">
+                                <div class="characters">
+                                    <label class="read-allContent" for="exp"></label>
+                                    我是后端程序员,发现有些人的回答太看不起前端技术同学了。于是我去把我收藏的 
+                                    淘宝前端招聘JD 拿了出来，觉得前端是个人都能干的同学们想必已经熟练掌握了以下内容吧?
+                                     看完后你觉得前端算程序员吗？有的时候照着网上的教程能写出来东西，只能叫入门，或者简单使用。你打印个helloworld，
+                                     或者照着网上最佳实践撸个小项目，或者在公司的前端项目上能够二次开发就算是掌握前端了？
+                                     JavaScript各种概念都得了解，《JavaScript语言精粹》这本书的目录都得有概念，并且这些核心
+                                     点都能脱口而出是什么。这里列举一些做参考:知道组合寄生继承，知道class继承。知道怎么创建类function + class。
+                                     知道闭包在实际场景中怎么用，常见的坑。知道模块是什么，怎么用。知道event loop是什么，能举例说明event loop怎么影响平
+                                     时的编码。掌握基础数据结构，比如堆、栈、树，并了解这些数据结构计算机基础中的作用。知道ES6数组相关方法，比如forEach，map，reduce。
+                    
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    </li>
+                    
+                </ul>
+            </section>
+            <!-- 我的文章 -->
+            <section class="myPassage">
+                <ul>
+                    <li>
+                        <p>
+                            &nbsp;&nbsp;这是一堆文字，没错，人类为了凑字数竟能丧心病狂到如此地步，
+                            可是那又能怎么办呢，我只不过是一个平平无奇的凑数小天才罢
+                            了，别管我，写完这点我就去睡觉了，现在已经是晚上12点了，可恶的姐姐睡得很香，
+                            我要去打扰他，顺便吃个宵夜
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            &nbsp;&nbsp;这是一堆文字，没错，人类为了凑字数竟能丧心病狂到如此地步，
+                            可是那又能怎么办呢，我只不过是一个平平无奇的凑数小天才罢
+                            了，别管我，都怪这该死的期末作业，我也不想怎么样
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            &nbsp;&nbsp;这是一堆文字，没错，人类为了凑字数竟能丧心病狂到如此地步，
+                            可是那又能怎么办呢，我只不过是一个平平无奇的凑数小天才罢
+                            了，别管我，写完这点我就去睡觉了，现在已经是晚上12点了，可恶的姐姐睡得很香，
+                            我要去打扰他，顺便吃个宵夜
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            &nbsp;&nbsp;这是一堆文字，没错，人类为了凑字数竟能丧心病狂到如此地步，
+                            可是那又能怎么办呢，我只不过是一个平平无奇的凑数小天才罢
+                            了，别管我，写完这点我就去睡觉了，现在已经是晚上12点了，可恶的姐姐睡得很香，
+                            我要去打扰他，顺便吃个宵夜
+                        </p>
+                    </li>
+                </ul>
+            </section>
+            <!-- 我的关注 -->
+            <section class="myFocus">
+                <ul>
+                    <li>
+                        <div>
+                            <img src="images/初始头像.png" alt="">
+                            <h4>酷酷</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="images/初始头像.png" alt="">
+                            <h4>尬尬</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="images/初始头像.png" alt="">
+                            <h4>酷酷</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="images/初始头像.png" alt="">
+                            <h4>酷酷</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="images/初始头像.png" alt="">
+                            <h4>酷酷</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="images/初始头像.png" alt="">
+                            <h4>酷酷</h4>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./js/account.js"></script>
+    <script>
+        //获取元素
+        var Tabs = document.querySelector('.Tabs');
+        var btns = Tabs.querySelectorAll('button');
+        var content = document.querySelector('.content');
+        var sections = content.querySelectorAll('section');
+        //注册事件
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].setAttribute('index', i);
+            btns[i].onclick = function () {
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].className = '';
+                }
+                this.className = 'active';
+                var index = this.getAttribute('index');
+                for (var i = 0; i < sections.length; i++) {
+                    sections[i].style.display = 'none';
+                }
+                sections[index].style.display = 'block';
+
+
+            }
+        }
+    </script>
+    <script>
+        $(function () {
+            $('#information').submit(function (e) {
+                // alert('监听到了表单的提交事项')
+                e.preventDefault()
+                var data = $(this).serialize()
+                console.log(data);
+                alert('提交成功')
+            })
+        })
+    </script>
+    </div>
+</body>
+
+</html>

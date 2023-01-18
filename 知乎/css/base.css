@@ -32,7 +32,7 @@ a {
 }
 
 a:hover {
-    color: #8590a6;
+    color: black;
 }
 
 button,
@@ -47,8 +47,10 @@ body {
     /* CSS3 抗锯齿形 让文字显示的更加清晰 */
     -webkit-font-smoothing: antialiased;
     background-color: #fff;
-    font: 12px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
-    color: #666;
+    font: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+}
+div {
+    box-sizing: border-box;
 }
 
 .hide,

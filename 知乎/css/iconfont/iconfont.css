@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3854869 */
+  src: url('iconfont.woff2?t=1673189675328') format('woff2'),
+       url('iconfont.woff?t=1673189675328') format('woff'),
+       url('iconfont.ttf?t=1673189675328') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shoucangxuanzhong:before {
+  content: "\e600";
+}
+
+.icon-xihuan:before {
+  content: "\e63b";
+}
+
+.icon-shoucang:before {
+  content: "\e62a";
+}
+
+.icon-xihuan1:before {
+  content: "\e682";
+}
+
+.icon-icon-pinglun:before {
+  content: "\e605";
+}
+
+.icon-favorfill:before {
+  content: "\e64b";
+}
+
+.icon-favor:before {
+  content: "\e64c";
+}
+
+.icon-likefill:before {
+  content: "\e668";
+}
+
+.icon-like:before {
+  content: "\e669";
+}
+
+.icon-icon_comment:before {
+  content: "\e602";
+}
+
+.icon-send:before {
+  content: "\e60b";
+}
+
+.icon-like1:before {
+  content: "\e63d";
+}
+
+.icon-start:before {
+  content: "\e63e";
+}
+
+.icon-keyboard_arrow_down:before {
+  content: "\e601";
+}
+
