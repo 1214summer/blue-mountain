@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 900px;
+            height: 500px;
+            border: 1px solid #aaa;
+            margin: 100px auto;
+        }
+
+        .users {
+            padding: 1px;
+            float: left;
+            width: 200px;
+            height: 100%;
+            border-right: 1px solid #aaa;
+        }
+
+        .chatbox {
+            height: 458px;
+            overflow-y: auto;
+        }
+
+        img {
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+        }
+        ul {
+            padding: 5px;
+        }
+        li {
+            list-style: none;
+            margin-bottom: 5px;
+        }
+
+        li span {
+            display: inline-block;
+            height: 30px;
+            border-radius: 8px;
+            line-height: 30px;
+            padding: 2px 5px;
+            background-color: #eae7e7;
+        }
+
+        .send>* {
+            float: left;
+            margin-right: 5px;
+        }
+
+        .send input {
+            width: 550px;
+            outline: none;
+
+        }
+
+        .send button {
+            height: 20px;
+            width: 48px;
+            border-radius: 8px;
+            line-height: 16px;
+        }
+        .emoj{
+            width: 100px;
+            height: 80px;
+            position: fixed;
+            top:495px;
+            right: 340px;
+            display: none;
+            border: 1px solid #aaa;
+            overflow-y: auto;
+        }
+        .emoj span{
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="users">
+            <div>
+                <img src="./img/云边没有小卖部.png" alt="">
+                <span>云边没有小卖部</span>
+            </div>
+            <div>
+                <img src="./img/云边有个小卖部.png" alt="">
+                <span>云边有个小卖部</span>
+            </div>
+        </div>
+        <div class="chat">
+            <span style="display:block;text-align: center;">点击头像并发送消息</span>
+            <div class="chatbox">
+                <ul>
+                </ul>
+                <div class="emoj">
+                    <span>😊</span>
+                    <span>😭</span>
+                    <span>😞</span>
+                    <span>😂</span>
+                    <span>🤔</span>
+                    <span>😍</span>
+                    <span>🤪</span>
+                    <span>🤗</span>
+                    <span>🙄</span>
+                    <span>🤣</span>
+                </div>
+            </div>
+            <div class="send">
+                <input type="text" id="sendInput">
+                <div class="emo">💝</div>
+                <button id="sendBtn">发送</button>
+                <button id="closeBtn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //点击用户出现outline
+        const users = document.querySelectorAll('.users div')
+        const sendInput = document.querySelector('#sendInput')
+        const sendBtn = document.querySelector('#sendBtn')
+        const closeBtn = document.querySelector('#closeBtn')
+        const chatbox = document.querySelector('.chatbox')
+        let account=[]
+        for (let i = 0; i < users.length; i++) {
+            users[i].setAttribute("data-index", i)
+            users[i].addEventListener('click', function () {
+                for (let j = 0; j < users.length; j++) {
+                    users[j].style.backgroundColor = '#fff'
+                }
+                users[i].style.backgroundColor = '#eae7e7'
+                account[0]=i;
+            })
+
+
+        }
+        const emoj = document.querySelector('.emoj')
+        sendBtn.addEventListener('click', function () {
+            const users = document.querySelectorAll('.users div')
+            if (sendInput.value != '') {
+                if (account[0] == 0) {
+                    let str = `
+                <li>
+                    <img src="./img/云边没有小卖部.png" alt="">
+                    <span>${sendInput.value}</span>
+                </li>
+            `
+                    chatbox.innerHTML += str
+
+                } else if (account[0] == 1) {
+                    let str = `
+                <li>
+                    <img src="./img/云边有个小卖部.png" alt="">
+                    <span>${sendInput.value}</span>
+                </li>
+            `
+                    chatbox.innerHTML += str
+
+                }
+                sendInput.value = ''
+            }
+            emoj.style.display='none'
+
+        })
+ 
+        const emo =document.querySelector('.emo')
+        emo.addEventListener('click',function(){
+            emoj.style.display='block'
+        })
+        closeBtn.addEventListener('click',function(){
+            emoj.style.display='none'
+        })
+        emoj.addEventListener('click',function(e){
+            if(e.target.tagName=='SPAN'){
+                sendInput.value+=e.target.innerHTML
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

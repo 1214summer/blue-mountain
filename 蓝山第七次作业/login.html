@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .tbody {
+        width: 300px;
+        height: 130px;
+        margin: 50px auto;
+        border: 1px solid #ccc;
+    }
+
+    .tab {
+        width: 100%;
+        height: 50px;
+    }
+
+    .tab div {
+        float: left;
+        margin-left: 30px;
+    }
+    .tab .active {
+        background-color: rgb(53, 161, 183);
+        color: aliceblue;
+    }
+    .content {
+        position: relative;
+    }
+
+    .content div:first-child {
+        position: absolute;
+        display: block;
+    }
+    .content div:nth-child(2){
+        position: absolute;
+        display: none;
+    }
+
+    .content div button {
+        margin-top: 10px;
+        margin-left: 50%;
+    }
+    #chat{
+        width: 500px;
+        height: 500px;
+        overflow-y: scroll;
+        margin: 0 auto;
+    }
+    #chat ul li{
+        display: block;
+        justify-content: flex-start;
+        align-items: center;
+        height: 70px;
+        list-style: none;
+    }
+    img{
+        margin: 0 auto;
+        width: 30px;
+        height: 30px;
+        
+    }
+    .imf div {
+        display: inline-block;
+        position: relative;
+        top: -10px;
+    }
+    h3 {
+        position: relative;
+        top: -18px;
+    }
+    #send{
+        width: 480px;
+        height: 50px;
+        margin: 0 auto;
+    }
+    #send input {
+        width: 400px;
+    }
+</style>
+
+<body>
+    <div class="tbody">
+        <div class="tab">
+            <div class="active">注册</div>
+            <div>登录</div>
+        </div>
+        <div class="content">
+            <div class="register">
+                昵称：<input type="text"><br>
+                <button>注册</button>
+            </div>
+            <div class="login">
+                昵称：<input type="text"><br>
+                <button>登录</button>
+            </div>
+        </div>
+    </div>
+  
+<!-- 信息区 -->
+    <div id="chat">
+        <ul class="chatUL"></ul>
+    </div>
+    <div id="send">
+        <input type="text" id="sendinput">
+        <button id="sendBtn">发送</button>
+    </div>
+
+
+
+    <script>
+    //渲染消息
+    fetch(`http://runninglili.club:8080/getAllMessages`)
+    .then(res=>res.json())
+    .then(res=>{
+        const result = res.map(item=>
+        `<li>
+             <div class="imf">
+               <img src="${item.avatar}" alt="">
+               <div>${item.username}</div>
+            </div>
+            <h3 class="mes">${item.words}</h3>
+        </li>
+        `
+        ).join("")
+        document.querySelector('.chatUL').insertAdjacentHTML("beforeend",result)
+    })
+
+
+        const tabs = document.querySelectorAll('.tab div')
+        const contents = document.querySelectorAll('.content div')
+        for (let i = 0; i < tabs.length; i++) {
+            tabs[i].onclick = function () {
+                for (let j = 0; j < tabs.length; j++) {
+                    tabs[j].className = ''
+                    contents[j].style.display = 'none'
+                }
+                tabs[i].className = 'active'
+                contents[i].style.display = 'block'
+            }
+        }
+
+
+        //封装HTTP函数（fetch请求）
+        async function http(obj) {
+            let { method, url, params, data } = obj
+            // console.log(method, url, params, data)
+            if (params) {
+                //固定写法：new URLSearchParams(params).toString()
+                let str = new URLSearchParams(params).toString()
+                //    console.log(str)
+                url += '?' + str
+            }
+
+            let res
+            if (data) {
+                res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+            } else {
+                res = await fetch(url)
+            }
+            //把获取的结果经过处理之后，返回出去
+            return res.json()
+        }
+
+        
+        const register = document.querySelector('.register input')
+        const login = document.querySelector('.login input')
+        const registerBtn = document.querySelector('.register button')
+        const loginBtn = document.querySelector('.login button')
+        // 注册
+        registerBtn.addEventListener('click',async function(){
+            const res = await http({
+                method: 'post',
+                url:`http://runninglili.club:8080/register`,
+                body:`username=${register.value}`
+            })
+            if(res.code===200){
+                alert('注册成功')
+            }
+        })
+        //注册
+        loginBtn.addEventListener('click',async function(){
+            const res = await http({
+                method: 'post',
+                url:`http://runninglili.club:8080/login`,
+                data:login.value
+            })
+            localStorage.setItem('token',res.token)
+            if(res.code===200){
+                alert('登录成功')
+            }
+        })
+
+      //监听发送
+      document.querySelector('#sendBtn').addEventListener('click',()=>{
+        fetch(`http://runninglili.club:8080/sendMes`,{
+            method:'POST',
+            headers:{
+                "Content-Type":"application/x-www-form-urlencoded"
+            },
+            body:`words=${sendinput.value}`
+        })
+        let sendMes = 
+        `<li>
+             <div class="imf">
+               <img src="./初始头像.png" alt="">
+               <div>我</div>
+            </div>
+            <h3 class="mes">${sendinput.value}</h3>
+        </li>
+        `
+        document.querySelector('.chatUL').insertAdjacentHTML("beforeend",sendMes)
+        sendinput.value=''
+      })
+
+    </script>
+</body>
+
+</html>

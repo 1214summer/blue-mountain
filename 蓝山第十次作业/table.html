@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #data,th,td{
+        border: 1px solid #aaaaaa;
+        border-collapse: collapse;
+    }
+    #data{
+        width: 600px;
+    }
+    #data th{
+        background: aquamarine;
+        color: white;
+    }
+    tbody tr:nth-child(even){
+        background: bisque;
+    }
+    body #data .active{
+      background:chocolate;
+    }
+  
+  </style>
+</head>
+<body>
+  <table id="data">
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>工资</th>
+        <th>入职时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Tom</td>
+        <td>3500</td>
+        <td>2015-8-20</td>
+    </tr>
+    <tr>
+        <td>Jack</td>
+        <td>3200</td>
+        <td>2017-12-6</td>
+    </tr>
+    <tr>
+        <td>Smith</td>
+        <td>6300</td>
+        <td>2004-12-14</td>
+    </tr>
+    <tr>
+        <td>Mary</td>
+        <td>2000</td>
+        <td>2018-3-2</td>
+    </tr>
+    </tbody>
+  </table>
+  
+  
+<script>
+    const tr=document.querySelectorAll('tr')
+    for(let i=0;i<tr.length;i++){
+      tr[i].onclick= function(){
+        for(let j=0;j<tr.length;j++){
+          tr[j].className = 'none'
+        }
+        tr[i].className = 'active'
+      }
+    }
+</script>
+</body>
+</html>

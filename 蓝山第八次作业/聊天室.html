@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .body {
+
+            height: 500px;
+            width: 700px;
+            margin: 100px auto;
+            border: 1px solid #aaa;
+        }
+
+        .top {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(71, 117, 196);
+        }
+
+        .uname {
+            border: 1px solid transparent;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+
+        .chatroom {
+            height: 440px;
+        }
+
+        .chat {
+            width: 498px;
+            height: 100%;
+            float: left;
+            border-right: 1px solid #aaa;
+        }
+
+        .chatboxs {
+            width: 480px;
+            height: 80%;
+            position: relative;
+        }
+
+        .chatbox {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+        }
+
+        .chatbox ul {
+            padding: 5px;
+        }
+
+        .chatbox li {
+            height: 50px;
+        }
+
+        .chatbox img,
+        .chatbox span {
+            line-height: 50px;
+            vertical-align: middle;
+        }
+
+        .chatbox .self img,
+        .chatbox .self span {
+            float: right;
+        }
+
+        textarea {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-top: 1px solid #aaa;
+            resize: none;
+            outline: none;
+        }
+
+        button {
+            float: right;
+            border: none;
+        }
+
+        /* function区 */
+        .function {
+            width: 200px;
+            height: 100%;
+            float: left;
+        }
+
+        .function .friends {
+            
+            height: 40%;
+            width: 100%;
+            border-bottom: 1px solid #aaa;
+        }
+        .friends ul{
+            position: relative;
+            height: 20px;
+        }
+
+        .friends ul li {
+            /* float: left; */
+            position: absolute;
+            display: inline-block;
+            left:10px;
+            width: 150px;
+            height: 20px;
+            font-size: 14px;
+        }
+        .dot{
+            display: none;
+            position: relative;
+            top:5px;
+            width: 10px;
+            height: 10px;
+            float: right;
+            background-color: orange;
+            border-radius: 5px;
+        }
+        .function .news{
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <div class="top">
+            <div class="uname">22-重庆</div>
+        </div>
+        <div class="chatroom">
+            <div class="chat">
+                <div class="chatboxs">
+                </div>
+                <div class="sendbox">
+                    <textarea name="" id="" cols="30" rows="10" placeholder="说点什么吧"></textarea>
+                    <button
+                        style="height: 30px; width: 50px; background-color: rgb(49, 119, 140); color: #fff;">发送</button>
+                </div>
+            </div>
+            <div class="function">
+                <div class="friends">
+                    <div>好友列表</div>
+                    <ul>
+                    </ul>
+                </div>
+                <div class="news">
+                    <div>系统广播</div>
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //建立websocket机制
+        const ws = new WebSocket('ws://runninglili.club:3000')
+        
+        ws.onopen = function () {
+            // alert('[open] Connection connected')
+            console.log(ws.readyState)
+        }
+
+
+        ws.onclose = function (event) {
+            if (event.wasClean) {
+                alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                alert('[close] Connection died')
+            }
+        }
+
+        ws.onerror = function (error) {
+            alert(`[error] ${error.message}`)
+        }
+
+        let username = prompt("请输入你的昵称")
+        let account = {
+            type: "username",
+            username: username
+        }
+        setTimeout(function () {
+            ws.send(JSON.stringify(account))
+        }, 1000)
+
+        ws.onmessage = function (back) {
+            // let data = JSON.parse(back.data)
+            let data = back.data
+            if (data == "连接成功") console.log("连接成功")
+            else {
+                let data = JSON.parse(back.data)
+                if (data.type == "username") {
+                    let s= `
+                        <li>${data.username}</li>
+                        <div class="dot ${data.username}"></div>
+                    `
+                    document.querySelector('.friends ul').innerHTML += s
+
+                    const Nlis = document.querySelectorAll('.news ul li')
+                    const Nul = document.querySelector('.news ul')
+                    let li = document.createElement('li').innerHTML = `您的好友 ${data.username} 上线啦`
+                    li += '<br>'
+                    Nul.innerHTML += li
+
+                    const chatboxs = document.querySelector('.chatboxs')
+                    const chatbox = document.querySelectorAll('.chatbox')
+                    let str = `
+                        <div class="chatbox ${data.username}">
+                            <ul>
+                            </ul> 
+                        </div>
+                    `
+                    chatboxs.innerHTML += str
+                } else if (data.type == 'message') {
+                    let str = `
+                    <li class="friend">
+                        <img style="height: 50px; width: 50px;" src="./朋友.png" alt="">
+                        <span>${data.msg}</span>
+                    </li> 
+                    `
+                    let Flis=document.querySelectorAll('.friends ul li')
+                    let chatbox = document.querySelectorAll('.chatbox')
+                    const dots = document.querySelectorAll('.dot')
+                    
+                    for (let i = 0; i < Flis.length; i++) {
+                        if (dots[i].classList.contains(data.username)) {
+                            dots[i].style.display='block'
+                        }
+
+                    }
+                    for (let i = 0; i < Flis.length; i++) {
+                        if (chatbox[i].classList.contains(Flis[i].innerText)) {
+                            console.log(134);
+                            chatbox[i].querySelector('ul').innerHTML += str
+                        }
+
+                    }
+                }
+
+            }
+        }
+        //点击好友，顶部名字改变，对应的聊天区域显示出
+
+        const Ful = document.querySelector('.friends ul')
+        
+        const textarea = document.querySelector('textarea')
+
+        Ful.addEventListener('click',function(e){
+              if(e.target.tagName=='LI'){
+                document.querySelector('.uname').innerHTML = e.target.innerText
+                const Flis = Ful.querySelectorAll('li')
+                //消除小圆点
+                const chatbox = document.querySelectorAll('.chatbox')
+                let index
+                for (let j = 0; j < chatbox.length; j++) {
+                    if(chatbox[j].className==`chatbox ${e.target.innerText}`){
+                        for (let j = 0; j < Flis.length; j++) {
+                           chatbox[j].style.display = 'none'
+                        }
+                        index=j
+                        chatbox[index].style.display='block'
+                    }
+                }
+                document.querySelector('button').onclick = function () {
+                        // console.log(111)
+                        let value = textarea.value
+                        let obj = {
+                            type: 'message',
+                            username: username,
+                            msg: value
+                        }
+                        ws.send(JSON.stringify(obj))
+                        let str = `
+                        <li class="self">
+                            <img style="height: 50px; width: 50px;" src="./自己.png" alt="">
+                            <span>${value}</span>
+                        </li> 
+                        `
+                        chatbox[index].querySelector('ul').innerHTML += str
+                        textarea.value = ''
+                    }
+              }
+
+
+        })
+
+
+    </script>
+</body>
+
+</html>

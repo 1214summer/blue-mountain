@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .self{
+            float: left;
+        }
+        .oppnent{
+            float: right;
+        }
+        .chessAll{
+            width: 500px;
+            height: 500px;
+            margin: 150px auto;
+        }
+        .chessout {
+            position: relative;
+            margin: 0 auto;
+            width: 452px;
+            height: 452px;
+        }
+
+        #canvas {
+            display: block;
+            height: 420px;
+            width: 420px;
+            /* position: absolute; */
+            margin: 0 auto;
+            border: 3px solid #aaa;
+            background-color: #e9cdac;
+        }
+
+        #chess {
+            background-color: pink;
+            display: block;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="chessAll">
+         <div class="self"><span>我：</span>  <h4>username</h4></div>
+         <div class="oppnent"><span>对手：</span>  <h4>username</h4></div>
+        <canvas id="canvas" width="420px" height="420px"></canvas>
+        <canvas id="chess" width="30px" height="30px"></canvas>
+        <video src="./向下(down)_爱给网_aigei_com.wav" class="audio"></video>
+        <video src="./bg 音乐(BgMusic)_爱给网_aigei_com.mp3" class="music"></video>
+    </div>
+
+
+    <script>
+        //建立websocket机制
+        const ws = new WebSocket('ws://runninglili.club:3000')
+        console.log(ws.readyState)
+
+
+        ws.onopen = function(){
+            alert('[open] Connection connected')
+            // console.log(ws.readyState)
+        }
+        if(ws.readyState===1){
+            ws.send(username)
+        }
+        let Xcount=0,Ycount=0,count=0
+        let X,Y
+        ws.onmessage = function(back){
+            // console.log(111);
+            console.log(back.data);
+            // console.log(typeof back.data);
+            let eval = Number(back.data)
+            // console.log(eval)
+            if(!isNaN(eval)){
+                console.log('是数字哦');
+                count++
+                if(count%2!= 0){
+                    Xcount++
+                    X=back.data
+                } 
+                else if(count>0 && count%2==0){
+                    Ycount++
+                    Y=back.data
+                }
+
+                if(Xcount===1 && Ycount===1){
+                    drawchess(X,Y,'white')
+                    Xcount=0,Ycount=0
+                }
+            }else{
+                if(back.data === "游戏结束，对方胜利"){
+                    alert("游戏结束，对方胜利")
+                }else document.querySelector('.oppnent h4').innerHTML=back.data
+            }
+        }
+
+        ws.onclose = function (event) {
+            if (event.wasClean) {
+                alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                alert('[close] Connection died')
+            }
+        }
+
+        ws.onerror = function (error) {
+            alert(`[error] ${error.message}`)
+        }
+
+
+    </script>
+
+
+    <script>
+        //创建棋盘
+        const canvas = document.getElementById('canvas')
+        const ctx = canvas.getContext('2d')
+        //划线
+        for (let i = 1; i <15; i++) {
+            ctx.beginPath()
+            ctx.moveTo(0, i * 30)
+            ctx.lineTo(420, i * 30)
+            ctx.stroke()
+            ctx.closePath()
+        }
+        for (let i = 1; i < 15; i++) {
+            ctx.beginPath()
+            ctx.moveTo(i * 30, 0)
+            ctx.lineTo(i * 30, 420)
+            ctx.stroke()
+            ctx.closePath()
+        }
+
+
+        // 创建棋子
+        const chess = document.getElementById('chess')
+        const chessctx = chess.getContext('2d')
+        chess.width = 30 + 'px'
+        chess.height = 30 + 'px'
+        console.log(chess.width)
+        function drawPoint(x, y) {
+            ctx.fillStyle = 'black'
+            ctx.beginPath()
+            ctx.arc(x, y, 3, Math.PI * 2, false)
+            ctx.fill()
+            ctx.stroke()
+        }
+        const point = {
+            lu:[90,90],
+            ru:[330,90],
+            mi:[210,210],
+            ld:[90,330],
+            rd:[330,330]
+        }
+        for(let item in point){
+            drawPoint(point[item][0],point[item][1])
+        }
+        
+            
+
+        //规则制定
+        let bout = true //是否允许落子
+
+        let flag = new Array(14); //表格有13行
+        for(let i = 0;i < flag.length; i++){
+          flag[i] = new Array(14).fill(0); //每行有13列
+        }
+        console.log(flag)
+        //画棋子
+        function drawchess(x, y, color) {
+            if(bout){
+                ctx.beginPath()
+                ctx.fillStyle = color
+                ctx.arc(x, y, 12, -Math.PI * 2, true)
+                ctx.fill()
+                ctx.closePath()
+                if(color==='black'){
+                    flag[x/30][y/30]= 10 //自身
+                    if(WuZiQi.heng(x,y)===true){
+                        bout=false
+                    }else if(WuZiQi.shu(x,y)===true){
+                        bout=false
+                    }else if(WuZiQi.Pxie(x,y)===true){
+                        bout=false
+                    }else if(WuZiQi.Rxie(x,y)===true){
+                        bout=false
+                    }else{
+                        bout=true
+                    }
+                }else if(color === 'white'){
+                    flag[x/30][y/30]===1
+                }
+            }else{
+                alert('游戏已经结束了')
+            }
+
+
+        }
+        // 校准x,y的位置
+        function checkPoint(point) {
+            let num = parseInt(point / 30)
+            num = point % 30 >= 30 / 2 ? ++num : num
+            if (num === 0||num>=14) return alert('此处不允许落子')
+            return num * 30
+        }
+        //落子
+        canvas.addEventListener('click', ev => {
+            X=checkPoint(ev.offsetX)
+            Y=checkPoint(ev.offsetY)
+            if(X===0||Y===0){
+              alert('这里不可以落子的啊')
+            }else{
+                if(X&&Y){
+                    if(bout){
+                        ws.send(checkPoint(X))
+                        ws.send(checkPoint(Y))
+                        drawchess(X, Y, 'black')
+                    }
+                }
+            }
+
+
+        })
+
+        const timeout = setTimeout(function(){
+            let username = prompt('请输入你的用户名')
+            document.querySelector('.self h4').innerHTML=username
+            ws.send(username)
+        },1000)
+        setTimeout(function(){
+            clearTimeout(timeout)
+        },1500)
+
+
+       
+        let  WuZiQi = {
+               
+               //横的计算
+              heng: function (x,y){
+                    let k
+                    let Acount=0
+                    if(x<150){
+                        for(k=30;k<=x+120;k+=30){
+                            if(flag[k/30][y/30]===10){
+                                Acount++
+                                if(Acount===5){
+                                    break
+                                }
+                            } 
+                            else Acount=0
+                        }
+                    }else if(x<=270){
+                        for(k=x-120;k<=x+120;k+=30){
+                            if(flag[k/30][y/30]===10){
+                                Acount++
+                                if(Acount===5){
+                                    break
+                                }
+                            } 
+                            else Acount=0
+                        }
+                    }else{
+                        for(k=x-120;k<=390;k+=30){
+                            if(flag[k/30][y/30]===10) {
+                                Acount++
+                                if(Acount===5){
+                                    break
+                                }
+                            }
+                            else Acount=0
+                        }
+                    }
+
+                    if(Acount===5){
+                        alert('游戏结束，我方获胜')
+                        ws.send('游戏结束，对方胜利')
+                        return true
+                    }else return false
+                },
+               //竖的计算
+              shu:function (x,y){
+                // console.log("我被调用了")
+                let Bcount=0
+                let k
+                if(y<150){
+                    for(k=30;k<=y+120;k+=30){
+                        if(flag[x/30][k/30]===10) {
+                            Bcount++
+                            if(Bcount===5){
+                                break;
+                             }
+                        }
+                        else Bcount=0
+                    }
+                }else if(x<=270){
+                    for(k=y-120;k<=y+120;k+=30){
+                        if(flag[x/30][k/30]===10)  {
+                            Bcount++
+                            if(Bcount===5){
+                                break;
+                             }
+                        }
+                        else Bcount=0
+                    }
+                }else{
+                    for(k=y-120;k<=390;k+=30){
+                        if(flag[x/30][k/30]===10) {
+                            Bcount++
+                            if(Bcount===5){
+                                break;
+                             }
+                        }
+                        else Bcount=0
+                    }
+                }
+
+                if(Bcount===5){
+                    alert('游戏结束，我方获胜')
+                    ws.send('游戏结束，对方胜利')
+                    return true
+                }else return false
+              },
+            //   sencond=shu()
+              //正斜着的计算
+             Pxie: function (x,y){
+                // console.log("我被调用了")
+                let Pcount=0
+                let k
+                let i =x/30
+                let j =y/30
+                if(x<=150||y<=150){
+                    if(x<y){
+                        for(k=1;k<=i+4;k++){
+                            if(flag[k][y/30-(i-k)]===10){
+                                Pcount++
+                                if (Pcount===5) break
+                            }
+                            else Pcount=0
+                        }
+                    }
+                    else if(x>=y&&x>=270){
+                        for(k=i-4;k<=13;k++){
+                            if(flag[k][j-(i-k)]===10) {
+                                // console.log("jiajia");
+                                Pcount++
+                                if (Pcount===5) break
+                            }
+                            else Pcount=0
+                        }
+                    }
+                    else if(x>=y&&x<=150){
+                        for(k=1;k<=j+4;k++){
+                            if(flag[i-(j-k)][k]===10) {
+                                // console.log("jiajia");
+                                Pcount++
+                                if (Pcount===5) break
+                            }
+                            else Pcount=0
+                        }
+                    }
+                }else if(x>150&&y>150&&x<=270&&y<=270){
+                    for(k=i-4;k<=j+4;k++){
+                            if(flag[x/30-(i-k)][y/30-(i-k)]===10) {
+                                Pcount++
+                                if (Pcount===5) break
+                            }
+                            else Pcount=0
+                        }
+
+                }else if(x>270||y>270){
+                    if(x>y){
+                        for(k=i-4;k<=13;k++){
+                            if(flag[k][y/30-(i-k)]===10) {
+                                Pcount++
+                                if (Pcount===5) break
+                            }
+                            else Pcount=0
+                        }
+                    }
+                    else{
+                        for(k=j-4;k<=13;k++){
+                            if(flag[x/30-(j-k)][k]===10) {
+                                Pcount++
+                                if (Pcount===5) break
+                            }
+                            else Pcount=0
+                        }
+                    }
+
+                }
+                if(Pcount===5){
+                    alert('游戏结束，我方获胜')
+                    ws.send('游戏结束，对方胜利')
+                    return true
+                }else return false
+                
+              },
+            //    third=Pxie()
+              //反斜着的计算
+            Rxie:function (x,y){
+                // console.log('我被调用了')
+                let Rcount=0
+                let k
+                let i =x/30
+                let j =y/30
+                if(x<=150&&y<=150){
+                    if(x<y){
+                        for(k=1;k<=i+4;k++){
+                            if(flag[k][y/30-(i-k)]===10) {
+                                Rcount++
+                                if(Rcount===5) break
+                            }
+                            else Rcount=0
+                        }
+                    }
+                    else if(x>=y){
+                        for(k=1;k<=j+4;k++){
+                            // console.log('出错啦');
+                            if(flag[i+(j-k)][k]===10) {
+                                Rcount++
+                                if(Rcount===5) break
+                            }
+                            else Rcount=0
+                        }
+                    }
+                }else if(x<=150&&y>150){
+                    if(x<(390-y)){
+                        for(k=1;k<=i+4;k++){
+                        if(flag[k][j+(i-k)]===10) {
+                            Rcount++
+                            if(Rcount===5) break
+                        }
+                        else Rcount=0
+                        }
+                    }
+                    else if(x>=(390-y)){
+                        for(k=j-4;k<=13;k++){
+                        if(flag[i+(j-k)][k]===10) {
+                            Rcount++
+                            if(Rcount===5) break
+                        }
+                        else Rcount=0
+                        }
+
+                    }
+                    
+                }else if(x>150&&y<=150){
+                    if(y<(390-x)){
+                        for(k=1;k<=j+4;k++){
+                        if(flag[i+(j-k)][k]===10) {
+                            Rcount++
+                            if(Rcount===5) break
+                        }
+                        else Rcount=0
+                        }
+                    }
+                    else if(y>=(390-x)){
+                        for(k=i-4;k<=13;k++){
+                        if(flag[k][j+(i-k)]===10) {
+                            Rcount++
+                            if(Rcount===5) break
+                        }
+                        else Rcount=0
+                        }
+
+                    }
+                    
+                }
+                else if(x>150&&y>150&&x<=270&&y<=270){
+                    for(k=j-4;k<=j+4;k++){
+                            if(flag[i+(j-k)][k]===10){
+                                Rcount++
+                                if(Rcount===5) break
+                            }else Rcount=0
+                    }
+
+                }
+                else if(x>270&&y>270){
+                    if(x>=y){
+                        for(k=i-4;k=13;k++){
+                            if(flag[k][j+(i-k)]===10){
+                                Rcount++
+                                if(Rcount===5) break
+                            }
+                            else Rcount=0
+                        }
+                    }else if(x<y){
+                         for(k=j-4;k<=13;k++){
+                            if(flag[i-(j-k)][k]===10){
+                                Rcount++
+                                if(Rcount===5) break
+                            }else Rcount=0
+                         }
+                    }
+                }
+
+
+                if(Rcount===5){
+                    alert('游戏结束，我方获胜')
+                    ws.send('游戏结束，对方胜利')
+                    return true
+                }else return false
+
+                    
+              }
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .light {
+            width: 100px;
+            height: 300px;
+            margin: 100px auto;
+            border: 2px solid #aaa;
+        }
+
+        .light>* {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+        }
+
+        /* .red {
+            background-color: red;
+        }
+
+        .green {
+            background-color: #fff;
+        }
+
+        .yellow {
+            background-color: yellow;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="light">
+        <div class="red"></div>
+        <div class="green"></div>
+        <div class="yellow"></div>
+    </div>
+    <script>
+        const redlight = document.querySelector('.red')
+        const greenlight = document.querySelector('.green')
+        const yellowlight=document.querySelector('.yellow')
+        let light = {
+            red:function(){
+               redlight.style.backgroundColor='red'
+            },
+            green:function(){
+                greenlight.style.backgroundColor='green'
+            },
+            yellow:function(){
+                yellowlight.style.backgroundColor='yellow'
+            }
+        }
+
+        const traffic_light=(light,delay)=>{
+            return new Promise((light,reject)=>{
+                setTimeout(()=>{
+                    light()
+                },delay)
+            })
+        }
+        const main=()=>{
+            Promise.resolve()
+            .then(()=>{
+                return traffic_light(light.red(),1000)
+            })
+            .then(()=>{
+                return traffic_light(light.green(),1000)
+            })
+            .then(()=>{
+                return traffic_light(light.yellow(),1000)
+            })
+            .then(()=>{
+                main();
+            })
+        }
+        main()
+    </script>
+</body>
+
+</html>

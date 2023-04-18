@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参考答案</title>
+</head>
+<style>
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width:60vw;
+        margin: 0 auto;
+        background-color: rgb(211, 211, 211);
+    }
+    #chat{
+        width: 80%;
+        background-color: rgb(247, 247, 247);
+        max-height: 500px;
+        min-height: 200px;
+        overflow-y:scroll;
+        box-sizing: border-box;
+        padding: 10px 20px 10px 20px;
+    }
+    .chatUl{
+        display: flex;
+        width: 80%;
+        list-style: none;
+        flex-direction: column;
+    }
+    li{
+        display:flex;
+        justify-content: start;
+        align-items: center;
+        height: 50px;
+    }
+    img{
+        display: block;
+        margin: 0 auto;
+        width: 30px;
+        height: 30px;
+        
+    }
+</style>
+<body>
+    <main class="main-container">
+        <div id="register">
+            <label for="registerInput">昵称:</label><input type="text" id="registerInput"><button id="registerBut">注册</button>
+        </div>
+        <div id="login">
+            <label for="loginInput">昵称:</label><input type="text" id="loginInput"><button id="loginBut">登录</button>
+        </div>
+        <div id="chat">
+            <ul class="chatUl">
+            </ul>
+        </div>
+        <div id="send">
+            <input id="sendInput" type="text"><button id="sendBut">发送</button>
+        </div>
+    </main>
+</body>
+<script>
+    const baseURL="http://runninglili.club:8080";
+    //直接渲染消息
+    fetch(baseURL+"/getAllMessages")
+    .then(res=>res.json())
+    .then(res=>{
+        const html=res.map(item=>
+        `<li>
+             <section class="imf">
+                <div>${item.username}</div>
+                <img src="${item.avatar}" alt="">
+            </section>
+            <h3 class="mes">${item.words}</h3>
+        </li>`
+        ).join("")
+        document.querySelector(".chatUl").insertAdjacentHTML("beforeend",html)
+    });
+    //监听注册
+    document.querySelector("#registerBut").addEventListener("click",()=>{
+        fetch(
+            baseURL+"/register",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded"
+                },
+                body:`username=${registerInput.value}`
+            }
+        )
+    });
+    //监听登录
+    document.querySelector("#loginBut").addEventListener("click",()=>{
+        fetch(
+            baseURL+"/login",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded"
+                },
+                body:`username=${loginInput.value}`
+            }
+        )
+        .then(res=>res.json())
+        .then(res=>{
+            localStorage.setItem("token",res.token)
+        })
+    });
+    //监听发送
+    document.querySelector("#sendBut").addEventListener("click",()=>{
+        fetch(
+            baseURL+"/sendMes",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded",
+                    "Authorization":localStorage.getItem("token")
+                },
+                body:`words=${sendInput.value}`
+            }
+        )
+    })
+</script>
+</html>

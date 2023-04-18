@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>备忘录</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       .box{
+            position: relative;
+            width: 500px;
+            height: 150px;
+            margin: 100px auto 0;
+            background-color: pink;
+            border-top: 1px solid transparent;
+            border-radius: 20px 20px 0 0;
+            
+        }
+        .box h4 {
+            display: block;
+            height: 20px;
+            width: 150px;
+            margin: 50px auto;
+            color: #fff;
+        }
+        .write{
+            position: absolute;
+            display: block;
+            width: 400px;
+            height: 40px;
+            left: 70px;
+            bottom: 38px;
+            background-color: transparent;
+        }
+        .write input {
+            float: left;
+            width: 290px;
+            height: 40px;
+            border: 2px solid black;
+            border-radius: 10px 0 0 10px;
+            font-size: 14px;
+        }
+        .write button {
+            float: left;
+            width: 60px;
+            height: 40px;
+            font-weight: 700;
+            color: black;
+            background-color: red;
+            border: 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .content{
+            margin: 0 auto;
+            width: 500px;
+        }
+        li{
+            list-style: none;
+            height: 30px;
+            width: 500px;
+            background-color: #f4efef;
+        }
+        .deletLi::before{
+            content: '✓';
+        }
+        li a{
+            text-decoration: none;
+            color: black;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+     <div class="box">
+           <h4>My To Do List</h4>
+           <div class="write">
+             <input type="text" placeholder="记录一下">
+             <button>Add</button>
+           </div>
+     </div>
+    <div class="content">
+        <ul></ul>
+    </div>
+     <ul>
+
+     </ul>
+      <script>
+        //获取元素
+        const btn = document.querySelector('button');
+        const text=document.querySelector('input');
+        const ul=document.querySelector('ul');
+         //注册事件
+        btn.onclick=function() {
+            if(text.value==''){
+                alert('你没有输入内容');
+            }else{
+                let str = `<li>${text.value}<a href="#">x</a></li>`
+                ul.innerHTML+= str
+                text.value=''
+            }
+        }
+
+        ul.addEventListener('click',(e)=>{ 
+            console.log(e.target.tagName);
+            if(e.target.tagName==='A'){
+                console.log('111')
+                let li = e.target.parentNode
+                li.style.textDecoration = 'line-through'
+                li.className = 'deletLi'
+            }
+        })
+
+
+      </script>
+</body>
+</html>
