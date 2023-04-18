@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="G00gle Chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex布局</title>
+    <style>
+        * {
+            margin-top: 0;
+            margin-left: 0;
+        }
+        div{
+            display: flex;
+            width: 100%;
+            height: 600px;
+            margin: auto;
+            flex-wrap: wrap;
+            background-color: skyblue;
+        }
+        .top {
+            display: flex;
+            width: 100%;
+            height: 100px;
+            background-color: blue;
+        }
+        .cenl {
+            display: flex;
+            width: 40%;
+            height: 450px;
+            background-color: green;
+        }
+        .cenr {
+            display: flex;
+            width: 60%;
+            height: 450px;
+            background-color: pink;
+        }
+        .bottom {
+            display: flex;
+            width: 100%;
+            height: 80px;
+            background-color: orange;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <span class="top">1</span>
+        <span class="cenl">2.1</span>
+        <span class="cenr">2.2</span>
+        <span class="bottom">3</span>
+    </div>
+</body>
+</html>
