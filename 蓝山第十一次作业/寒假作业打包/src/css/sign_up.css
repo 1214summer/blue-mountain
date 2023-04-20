@@ -1,0 +1,102 @@
+body {
+    background: url(../images/sign_bg.png) #b8e5f8;
+    background-size: cover;
+}
+
+.signuplogo {
+    width: 128px;
+    height: 81px;
+    margin: 41px auto;
+}
+.signuplogo img {
+    
+    width: 128px;
+    height: 81px;
+}
+
+.signQR_Container {
+    width: 500px;
+    height: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 8px;
+}
+.Sign_Tabs {
+    width: 500px;
+    height: 50px;
+    margin-top: 16px;
+    margin-left: 20px;
+    text-align: left;
+}
+.Sign_Tabs button {
+    float: left;
+    /* display: inline-block; */
+    /* padding: 8px 0; */
+    background-color: #fff;
+    margin-right: 50px;
+    font-size: 20px;
+    /* font-weight: 700; */
+ }
+.Sign_Tabs .active {
+    font-weight: 700;
+    border-bottom: 5px solid #056de8;
+} 
+.content {
+    margin: 20px auto;
+    padding: 0 20px;
+}
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* opacity: 0; */
+    display: none;
+}
+.content .active{
+    display: block;
+}
+#f1,
+#f2{
+    width: 360px;
+    margin-left: 10px;
+}
+/* .phoneNumber {
+    display: block; 
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+}
+.phone-password {
+    display: block; 
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+} */
+/* #getMessage {
+    float: right;
+} */
+.content button {
+    display: block;
+    margin: 30px auto;
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: #056de8;
+    color: white;
+}
+.content span {
+    font-size: 14px;
+}
+ .content input {
+    display: block;
+    width: 450px;
+    height: 20px; 
+    /* width: 500px;
+    height: 50px; */
+    color: black;
+    font-size: 14px;
+    margin-top: 20px; 
+    border-bottom: 1px solid #ebebeb;
+} 

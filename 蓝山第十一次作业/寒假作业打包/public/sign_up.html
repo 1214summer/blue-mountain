@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知乎 - 有问题，就会有答案</title>
+
+     <!-- 网站说明 -->
+     <meta name="description" content="知乎，中文互联网高质量的问答社区和创作者聚集的原创内容平台，于 2011 年 1 月正式上线，
+     以「让人们更好的分享知识、经验和见解，找到自己的解答」为品牌使命。知乎凭借认真、专业、友善的社区氛围、独特的产品机制以及结构化和易获得的优质内容
+     ，聚集了中文互联网科技、商业、影视、时尚、文化等领域最具创造力的人群，已成为综合性、全品类、在诸多领域具有关键影响力的知识分享社区和创作者
+     聚集的原创内容平台，建立起了以社区驱动的内容变现商业模式。"/>
+    <!-- 引入初始化文件 -->
+    <!-- <link rel="stylesheet" href="css/base.css">
+    <!- 引入公共样式文件 -->
+    <!-- <link rel="stylesheet" href="css/common.css"> -->
+    <!-- 引入favicon图标 -->
+    <!-- <link rel="shortcut icon" href="favicon1.ico"> -->
+    <!-- 引入注册页面文件 -->
+    <!-- <link rel="stylesheet" href="css/sign_up.css"> -->
+    <!-- 引入注册页的js文件 -->
+    <!-- <script src="js/jquery-1.11.1.min.js"></script>  -->
+    <!-- <script src="js/sign_up.js"></script> -->
+</head>
+<body>
+    <div class="signuplogo">
+        <img src="images/logo.png" alt="知乎 LOGO">
+    </div>
+    <div class="signQR_Container">
+           <div class="Sign_Tabs">
+               <button  class="active">手机号登录</button>
+               <button>邮箱登录</button>
+           </div> 
+           <div class="content">
+                <section class="active"> 
+                    <form action="./index.html" method="post" id="f1">
+                        <input type="tel" placeholder="手机号" name="mobile">
+                        <input type="password" placeholder="密码" name="password">
+                        <button type="submit">登录/注册</button>
+                        <span>未注册手机验证后自动登录，注册即代表同意《知乎协议》《隐私
+                            保护指引》</span>
+                    </form>
+                </section>
+                <section>
+                   <form action="./index.html" method="post" id="f2">
+                        <input type="email" placeholder="邮箱账号" name="email">
+                        <input type="password" placeholder="密码" name="password">
+                        <button type="submit">登录/注册</button>
+                        <span>未注册手机验证后自动登录，注册即代表同意《知乎协议》《隐私
+                            保护指引》</span>
+                </form>
+            </section>
+        
+       
+    </div>
+    <script src="../dist/static/js/main.js"></script>
+</body>
+</html>
